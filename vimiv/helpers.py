@@ -131,6 +131,8 @@ def expand_filenames(filename, filelist, command):
     command = re.sub(r'(?<!\\)(%)', filename, command)
     command = re.sub(r'(?<!\\)(\*)', " ".join(filelist), command)
     command = re.sub(r'(\\)(?!\\)', "", command)
+    command = re.sub(r'\(', "\\(", command)
+    command = re.sub(r'\)', "\\)", command)
     return command
 
 

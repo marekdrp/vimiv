@@ -2,7 +2,7 @@
 """Wrapper functions for the _image_enhance C extension."""
 
 from gi.repository import GdkPixbuf, GLib
-from vimiv import _image_enhance
+from vimiv import image_enhance
 
 
 def enhance_bc(pixbuf, brightness, contrast):
@@ -21,7 +21,7 @@ def enhance_bc(pixbuf, brightness, contrast):
     # Update plain bytes using C extension
     # Pylint does not read this properly
     # pylint: disable=no-member
-    data = _image_enhance.enhance_bc(data, c_has_alpha, brightness, contrast)
+    data = image_enhance.enhance_bc(data, c_has_alpha, brightness, contrast)
     gdata = GLib.Bytes.new(data)
     return GdkPixbuf.Pixbuf.new_from_bytes(gdata,
                                            pixbuf.get_colorspace(),

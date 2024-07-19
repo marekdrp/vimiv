@@ -112,6 +112,8 @@ def is_animation(filename):
     """
     complete_name = os.path.abspath(os.path.expanduser(filename))
     info = GdkPixbuf.Pixbuf.get_file_info(complete_name)[0]
+    if not info:
+        return False
     return "gif" in info.get_extensions()
 
 

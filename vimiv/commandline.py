@@ -168,6 +168,10 @@ class CommandLine(Gtk.Entry):
                 self._app["statusbar"].message(str(e), "error")
                 # Check if the function supports passing count
         # If the command name is not in the dictionary throw an error
+        elif name in self.commands.aliases:
+            name = self.commands.aliases[name]
+            # Run the correct command
+            self._run(name)
         else:
             message = "No command called " + name
             if keyname:
@@ -180,6 +184,8 @@ class CommandLine(Gtk.Entry):
         Args:
             cmd: The command to run.
         """
+        if not self._last_widget:
+            self._last_widget = self._app.get_focused_widget()
         # Expand filenames getting the correct filelist to operate on first
         fil = self._app.get_pos(True)
         if self._app["mark"].marked:  # Always use marked files if they exist
